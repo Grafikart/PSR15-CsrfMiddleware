@@ -1,5 +1,7 @@
 # PSR-15 Middleware
 
+[![Build Status](https://travis-ci.org/Grafikart/PSR15-CsrfMiddleware.svg?branch=master)](https://travis-ci.org/Grafikart/PSR15-CsrfMiddleware)
+
 This middleware check every POST, PUT or DELETE request for a CSRF token.
 Token are persisted using an ArrayAccess compatible Session and are generated on demand.
 
