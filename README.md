@@ -7,7 +7,7 @@ Token are persisted using an ArrayAccess compatible Session and are generated on
 
 ## Installation
 
-```php
+```bash
 composer require grafikart/psr15-csrf-middleware
 ```
 
@@ -21,7 +21,7 @@ $app->pipe($middleware);
 $input = "<input type=\"hidden\" name=\"{$middleware->getFormKey()}\" value=\"{$middleware->generateToken()}\"/>
 ```
 
-Middleware are constructed with this parameters
+Middleware are constructed with these parameters
 
 - session, **ArrayAccess|array**, used to store token
 - limit, **int**, limit the number of token to persist
