@@ -1,5 +1,5 @@
 {
-    "name": "grafikart/csrf",
+    "name": "grafikart/psr15-csrf-middleware",
     "description": "A PSR-15 compatible middleware to prevent CSRF",
     "type": "library",
     "license": "MIT",
