@@ -1,0 +1,8 @@
+# Environment garbage
+.idea
+*.iml
+
+# Project Specific
+.php_cs.cache
+composer.lock
+vendor/

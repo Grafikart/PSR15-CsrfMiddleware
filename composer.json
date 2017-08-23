@@ -1,0 +1,27 @@
+{
+    "name": "grafikart/csrf",
+    "description": "A PSR-15 compatible middleware to prevent CSRF",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Grafikart",
+            "email": "contact@grafikart.fr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Grafikart\\Csrf\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=7.1.0",
+        "http-interop/http-middleware": "^0.4.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.2.0",
+        "squizlabs/php_codesniffer": "^3.0",
+        "friendsofphp/php-cs-fixer": "^2.5"
+    }
+}
