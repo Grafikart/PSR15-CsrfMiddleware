@@ -70,8 +70,6 @@ class CsrfMiddleware implements MiddlewareInterface
                 throw new InvalidCsrfException();
             }
             $this->removeToken($params[$this->formKey]);
-
-            return $delegate->process($request);
         }
 
         return $delegate->process($request);
