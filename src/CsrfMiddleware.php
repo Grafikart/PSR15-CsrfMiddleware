@@ -2,10 +2,10 @@
 
 namespace Grafikart\Csrf;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class CsrfMiddleware implements MiddlewareInterface
 {
@@ -59,7 +59,7 @@ class CsrfMiddleware implements MiddlewareInterface
      *
      * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if (in_array($request->getMethod(), ['PUT', 'POST', 'DELETE'], true)) {
             $params = $request->getParsedBody() ?: [];
@@ -72,7 +72,7 @@ class CsrfMiddleware implements MiddlewareInterface
             $this->removeToken($params[$this->formKey]);
         }
 
-        return $delegate->process($request);
+        return $handler->handle($request);
     }
 
     /**
