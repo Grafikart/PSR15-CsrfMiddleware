@@ -8,6 +8,7 @@ use Grafikart\Csrf\NoCsrfException;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class CsrfMiddlewareTest extends TestCase
 {
@@ -28,7 +29,7 @@ class CsrfMiddlewareTest extends TestCase
 
     private function makeDelegate()
     {
-        $delegate = $this->getMockBuilder(\Psr\Http\Server\RequestHandlerInterface::class)->getMock();
+        $delegate = $this->getMockBuilder(RequestHandlerInterface::class)->getMock();
         $delegate->method('handle')->willReturn($this->makeResponse());
 
         return $delegate;
