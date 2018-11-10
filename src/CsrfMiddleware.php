@@ -52,12 +52,12 @@ class CsrfMiddleware implements MiddlewareInterface
 
     /**
      * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
+     * @param RequestHandlerInterface $handler
+     *
+     * @return ResponseInterface
      *
      * @throws InvalidCsrfException
      * @throws NoCsrfException
-     *
-     * @return ResponseInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -79,6 +79,7 @@ class CsrfMiddleware implements MiddlewareInterface
      * Generate and store a random token.
      *
      * @return string
+     * @throws \Exception
      */
     public function generateToken(): string
     {
