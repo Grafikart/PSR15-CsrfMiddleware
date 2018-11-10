@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/Grafikart/PSR15-CsrfMiddleware.svg?branch=master)](https://travis-ci.org/Grafikart/PSR15-CsrfMiddleware) [![Coverage Status](https://coveralls.io/repos/github/Grafikart/PSR15-CsrfMiddleware/badge.svg?branch=master)](https://coveralls.io/github/Grafikart/PSR15-CsrfMiddleware?branch=master)
 
-This middleware check every POST, PUT or DELETE request for a CSRF token.
-Token are persisted using an ArrayAccess compatible Session and are generated on demand.
+This middleware checks every POST, PUT and DELETE requests for a CSRF token.
+Tokens are persisted using an ArrayAccess compatible Session and are generated on demand.
 
 ## Installation
 
@@ -21,10 +21,10 @@ $app->pipe($middleware);
 $input = "<input type=\"hidden\" name=\"{$middleware->getFormKey()}\" value=\"{$middleware->generateToken()}\"/>
 ```
 
-Middleware are constructed with these parameters
+Middleware is constructed with these parameters:
 
-- session, **ArrayAccess|array**, used to store token
-- limit, **int**, limit the number of token to persist
+- session, **ArrayAccess|array**, used to store tokens
+- limit, **int**, limits the amount of tokens the session is allowed to persist
 - sessionKey, **string**
 - formKey, **string**
 
