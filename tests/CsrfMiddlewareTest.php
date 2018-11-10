@@ -27,7 +27,7 @@ class CsrfMiddlewareTest extends TestCase
         return $request;
     }
 
-    private function makeDelegate()
+    private function makeRequestHandler()
     {
         $delegate = $this->getMockBuilder(RequestHandlerInterface::class)->getMock();
         $delegate->method('handle')->willReturn($this->makeResponse());
@@ -60,7 +60,7 @@ class CsrfMiddlewareTest extends TestCase
     public function testGetPass()
     {
         $middleware = $this->makeMiddleware();
-        $delegate = $this->makeDelegate();
+        $delegate = $this->makeRequestHandler();
         $delegate->expects($this->once())->method('handle');
         $middleware->process(
             $this->makeRequest('GET'),
@@ -71,7 +71,7 @@ class CsrfMiddlewareTest extends TestCase
     public function testPreventPost()
     {
         $middleware = $this->makeMiddleware();
-        $delegate = $this->makeDelegate();
+        $delegate = $this->makeRequestHandler();
         $delegate->expects($this->never())->method('handle');
         $this->expectException(NoCsrfException::class);
         $middleware->process(
@@ -84,7 +84,7 @@ class CsrfMiddlewareTest extends TestCase
     {
         $middleware = $this->makeMiddleware();
         $token = $middleware->generateToken();
-        $delegate = $this->makeDelegate();
+        $delegate = $this->makeRequestHandler();
         $delegate->expects($this->once())->method('handle')->willReturn($this->makeResponse());
         $middleware->process(
             $this->makeRequest('POST', ['_csrf' => $token]),
@@ -96,7 +96,7 @@ class CsrfMiddlewareTest extends TestCase
     {
         $middleware = $this->makeMiddleware();
         $token = $middleware->generateToken();
-        $delegate = $this->makeDelegate();
+        $delegate = $this->makeRequestHandler();
         $delegate->expects($this->never())->method('handle');
         $this->expectException(InvalidCsrfException::class);
         $middleware->process(
@@ -109,7 +109,7 @@ class CsrfMiddlewareTest extends TestCase
     {
         $middleware = $this->makeMiddleware();
         $token = $middleware->generateToken();
-        $delegate = $this->makeDelegate();
+        $delegate = $this->makeRequestHandler();
         $delegate->expects($this->once())->method('handle')->willReturn($this->makeResponse());
         $middleware->process(
             $this->makeRequest('POST', ['_csrf' => $token]),
