@@ -61,7 +61,7 @@ class CsrfMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (\in_array($request->getMethod(), ['PUT', 'POST', 'DELETE'], true)) {
+        if (\in_array($request->getMethod(), ['DELETE', 'PATCH', 'POST', 'PUT'], true)) {
             $params = $request->getParsedBody() ?: [];
             if (!array_key_exists($this->formKey, $params)) {
                 throw new NoCsrfException();
