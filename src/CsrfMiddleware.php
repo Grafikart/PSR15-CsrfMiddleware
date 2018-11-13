@@ -51,8 +51,8 @@ class CsrfMiddleware implements MiddlewareInterface
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
      * @throws InvalidCsrfException
      * @throws NoCsrfException
@@ -61,12 +61,12 @@ class CsrfMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (in_array($request->getMethod(), ['PUT', 'POST', 'DELETE'], true)) {
+        if (\in_array($request->getMethod(), ['DELETE', 'PATCH', 'POST', 'PUT'], true)) {
             $params = $request->getParsedBody() ?: [];
             if (!array_key_exists($this->formKey, $params)) {
                 throw new NoCsrfException();
             }
-            if (!in_array($params[$this->formKey], $this->session[$this->sessionKey] ?? [], true)) {
+            if (!\in_array($params[$this->formKey], $this->session[$this->sessionKey] ?? [], true)) {
                 throw new InvalidCsrfException();
             }
             $this->removeToken($params[$this->formKey]);
@@ -77,6 +77,8 @@ class CsrfMiddleware implements MiddlewareInterface
 
     /**
      * Generate and store a random token.
+     *
+     * @throws \Exception
      *
      * @return string
      */
@@ -99,7 +101,7 @@ class CsrfMiddleware implements MiddlewareInterface
      */
     private function testSession($session): void
     {
-        if (!is_array($session) && !$session instanceof \ArrayAccess) {
+        if (!\is_array($session) && !$session instanceof \ArrayAccess) {
             throw new \TypeError('session is not an array');
         }
     }
@@ -144,7 +146,7 @@ class CsrfMiddleware implements MiddlewareInterface
      */
     private function limitTokens(array $tokens): array
     {
-        if (count($tokens) > $this->limit) {
+        if (\count($tokens) > $this->limit) {
             array_shift($tokens);
         }
 
